@@ -1,11 +1,14 @@
 # fac-bench
 
-Factorial benchmark in different languages. Showcase expressivity and speed, in development as well as execution.
+Factorial benchmark in different languages. Showcase expressivity and speed, in
+development as well as execution.
 
 ## Specification
 
-Calculate the first 3000 factorials, sum them and print the number out. To get meaningful results you should implement fac the naive way.
+Calculate the first 3000 factorials, sum them and print the number out. To get
+meaningful results you should implement fac the naive way.
 
 ## Structure
 
-A subfolder per language.
+A subfolder per language. Each folder should contain a file named `build` that
+ensures the executable is ready.
