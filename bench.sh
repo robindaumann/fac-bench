@@ -3,22 +3,22 @@ set -euo pipefail
 
 function bench() {
   DIR=$1
+  printf "Language %s\n" "$DIR"
   (
     cd "$DIR" && ./build
-  )
-  echo "Language $DIR"
+  ) || return 1
   time ("$DIR/fac" >number)
   if ! diff -q expected number &>/dev/null; then
-    echo -e "FAIL\n"
-    exit 1
+    printf "FAIL\n"
+    return 1
   else
-    echo -e "PASS\n"
+    printf "PASS\n"
   fi
 }
 
 if [ -n "${1-}" ]; then
-  bench "$1"
+  bench "$1" || exit 1
 else
   export -f bench
-  find . -type d -name '[!.]*' -maxdepth 1 -exec bash -c 'bench "$0"' {} \;
+  find . -type d -name '[!.]*' -maxdepth 1 -exec bash -c 'bench "$0"; printf "\n"' {} \;
 fi
