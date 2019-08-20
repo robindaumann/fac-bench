@@ -1,2 +1,2 @@
 fac: fac.c
-	gcc -Wall -o fac fac.c -lgmp
+	gcc -Wall -O3 -o fac fac.c -lgmp
