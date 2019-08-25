@@ -1,0 +1,9 @@
+[package]
+name = "fac"
+version = "0.1.0"
+authors = ["Robin Daumann <26201853+robindaumann@users.noreply.github.com>"]
+edition = "2018"
+
+[dependencies]
+num-bigint = "0.2"
+num-traits = "0.2"

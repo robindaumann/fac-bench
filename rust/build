@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+cargo build --release
+[ -f fac ] || ln -s target/release/fac fac
