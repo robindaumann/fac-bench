@@ -1,0 +1,3 @@
+#!/bin/sh
+
+javac fac.java && ([ -f fac ] || ln -s fac.sh fac)
