@@ -2,7 +2,10 @@
 
 open System
 
-let fac n = seq { 1..n } |> Seq.map bigint |> Seq.reduce(fun x y -> x*y)
+let fac n =
+        seq { 1..n }
+        |> Seq.map bigint
+        |> Seq.reduce(*)
 
 [<EntryPoint>]
 let main argv =
