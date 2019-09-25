@@ -7,7 +7,7 @@ func main() {
 	res := big.NewInt(0)
 
 	for i := int64(1); i <= 3000; i++ {
-		x := fac_loop(i)
+		x := fac(i)
 		res.Add(res, x)
 	}
 
