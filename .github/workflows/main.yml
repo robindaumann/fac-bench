@@ -11,10 +11,6 @@ jobs:
     - uses: actions/setup-ruby@v1
       with:
         ruby-version: '2.x'
-    - uses: actions/setup-elixir@v1.1.0
-        with:
-          otp-version: 22.x
-          elixir-version: 1.9.x
     - name: Install dependencies
       run: echo TODO we have to find out which ones
     - name: Run the bench script
