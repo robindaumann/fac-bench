@@ -1,0 +1,15 @@
+name: Benchmark CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install dependencies
+      run: echo TODO we have to find out which ones
+    - name: Run the bench script
+      run: ./bench.sh
