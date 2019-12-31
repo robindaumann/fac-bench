@@ -12,6 +12,6 @@ jobs:
       with:
         ruby-version: '2.x'
     - name: Install dependencies
-      run: echo TODO we have to find out which ones
+      run: sudo apt-get install -y sbcl perl6 nim
     - name: Run the bench script
       run: ./bench.sh
