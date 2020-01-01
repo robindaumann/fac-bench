@@ -7,8 +7,10 @@ function bench() {
   (
     cd "$DIR" && ./build
   ) || return 1
-  time ("$DIR/fac" >number)
-  if ! diff -q expected number &>/dev/null; then
+  time NUM=$("$DIR/fac")
+
+  # Compare the produced output
+  if ! diff -q expected <(echo $NUM) &>/dev/null; then
     printf "FAIL\n"
     return 1
   else
