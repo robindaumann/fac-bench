@@ -11,6 +11,10 @@ jobs:
     - uses: actions/setup-ruby@v1
       with:
         ruby-version: '2.x'
+    - uses: actions/setup-elixir@v1.2.0
+      with:
+          otp-version: '22.x'
+          elixir-version: '1.9.x'
     - name: Install dependencies
       run: sudo apt-get install -y sbcl perl6 nim
     - name: Run the bench script
