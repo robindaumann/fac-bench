@@ -1,4 +1,3 @@
-#!/usr/bin/env -S sbcl --script
+#!/usr/bin/env sh
 
-(load "fac-bench-unhinted.lisp")
-(save-lisp-and-die "fac" :executable t :toplevel 'main)
+sbcl --script save-lisp.lisp
