@@ -20,4 +20,4 @@ jobs:
         sudo apt-get install -y sbcl perl6 nim
         pip install tabulate
     - name: Run the bench script
-      run: ./bench.sh
+      run: ./bench.py
