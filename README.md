@@ -12,3 +12,7 @@ meaningful results you should implement fac the naive way.
 
 A subfolder per language. Each folder should contain a file named `build` that
 ensures the executable is ready.
+
+## CI
+
+On push all benchmarks are executed and results checked.
