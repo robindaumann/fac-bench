@@ -18,6 +18,6 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get install -y sbcl perl6 nim
-        pip install tabulate
+        pip3 install tabulate
     - name: Run the bench script
       run: ./bench.py

@@ -82,8 +82,8 @@ def to_number(s):
 def print_table(times):
     rows = [time.fields() for time in times]
     header = ['Language', 'Time', 'Result']
-    table = tabulate.tabulate(rows, headers=header, showindex=range(1, len(rows)+1))
-    print(table)
+    t = tabulate.tabulate(rows, headers=header, showindex=range(1, len(rows)+1))
+    print(t)
 
 
 @dataclass
