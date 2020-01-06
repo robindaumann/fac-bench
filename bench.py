@@ -37,7 +37,7 @@ def bench(lang, debug):
             print(lang, res.res, "\n", build.stderr.decode(), file=sys.stderr)
         return res
 
-    bench = subprocess.run(["time", f"{lang}/fac"], capture_output=True)
+    bench = subprocess.run(["time", "-p", f"{lang}/fac"], capture_output=True)
     if bench.returncode != 0:
         res.res = "error"
         return res
@@ -64,7 +64,7 @@ def get_expected():
 
 
 def parse_time(s):
-    match = re.search(r"(\d+\.\d+) real", s.decode())
+    match = re.search(r"(\d+\.\d+)", s.decode())
     try:
         num = match.group(1)
         return float(num)
