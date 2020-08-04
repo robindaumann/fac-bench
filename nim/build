@@ -1,4 +1,4 @@
 #!/bin/sh
 
-nimble path bignum || nimble -y install bignum
+nimble path bignum || nimble -y install bignum@1.0.3
 nim c -d:release --out:fac facBenchBignum.nim
