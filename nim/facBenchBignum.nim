@@ -1,11 +1,11 @@
 import bignum
 
-proc fac*(n: int): Int =
+proc fac*(n: int): Int {.noSideEffect.} =
   result = newInt(1)
   for i in 1..n:
     discard result.mul(result, i)
 
-proc facBench*(n: int): Int =
+proc facBench*(n: int): Int {.noSideEffect.} =
   result = newInt(0)
   for i in 1..n:
     discard result.add(result, fac(i))
