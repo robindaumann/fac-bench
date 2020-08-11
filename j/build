@@ -1,0 +1,3 @@
+#!/bin/sh
+
+[ -f fac ] || ln -s fac-bench.ijs fac
