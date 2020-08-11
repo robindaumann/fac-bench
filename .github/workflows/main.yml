@@ -13,11 +13,14 @@ jobs:
         ruby-version: '2.x'
     - uses: actions/setup-elixir@v1.2.0
       with:
-          otp-version: '22.x'
-          elixir-version: '1.9.x'
+        otp-version: '22.x'
+        elixir-version: '1.9.x'
     - uses: actions/setup-python@v1
       with:
-          python-version: '3.x'
+        python-version: '3.x'
+    - uses: actions/setup-julia@v1
+      with:
+        version: '1.5.x'
     - name: Install dependencies
       run: |
         sudo apt-get install -y sbcl perl6 nim
