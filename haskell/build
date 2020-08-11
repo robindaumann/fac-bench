@@ -1,0 +1,3 @@
+#!/bin/sh
+
+ghc -O2 -o fac fac-bench.hs

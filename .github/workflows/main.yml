@@ -21,6 +21,9 @@ jobs:
     - uses: julia-actions/setup-julia@v1
       with:
         version: '1.5.x'
+    - uses: actions/setup-haskell@v1.1
+      with:
+        ghc-version: '8.6'
     - name: Install dependencies
       run: |
         sudo apt-get install -y sbcl perl6 nim
