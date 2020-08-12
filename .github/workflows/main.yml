@@ -14,7 +14,7 @@ jobs:
         elixir-version: '1.9.x'
     - name: Install dependencies
       run: |
-        sudo apt-get install -y sbcl perl6 nim
+        sudo apt-get install -y sbcl perl6 nim php-gmp
         pip3 install -r requirements.txt
         curl -O http://www.jsoftware.com/download/j902/install/j902_linux64.tar.gz
         tar xf j902_linux64.tar.gz &&
