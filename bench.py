@@ -7,6 +7,7 @@ import operator
 import tabulate
 import subprocess
 from dataclasses import dataclass
+from multiprocessing import Pool
 
 
 def main(argv):
@@ -15,7 +16,8 @@ def main(argv):
     else:
         langs = subdirs(".")
 
-    times = list(map(bench, langs))
+    with Pool() as p:
+        times = p.map(bench, langs)
     times.sort(key=operator.attrgetter('time'))
     print_table(times)
 
