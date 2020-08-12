@@ -8,10 +8,19 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+    - uses: actions/setup-ruby@v1
+      with:
+        ruby-version: '2.x'
     - uses: actions/setup-elixir@v1.2.0
       with:
         otp-version: '22.x'
         elixir-version: '1.9.x'
+    - uses: julia-actions/setup-julia@v1
+      with:
+        version: '1.5.x'
+    - uses: actions/setup-haskell@v1.1
+      with:
+        ghc-version: '8.6'
     - name: Install dependencies
       run: |
         sudo apt-get install -y sbcl perl6 nim php-gmp
