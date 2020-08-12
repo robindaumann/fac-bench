@@ -15,9 +15,6 @@ jobs:
       with:
         otp-version: '22.x'
         elixir-version: '1.9.x'
-    - uses: actions/setup-python@v1
-      with:
-        python-version: '3.x'
     - uses: julia-actions/setup-julia@v1
       with:
         version: '1.5.x'
