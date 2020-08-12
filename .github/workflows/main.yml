@@ -27,7 +27,7 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get install -y sbcl perl6 nim
-        pip3 install tabulate
+        pip3 install -r requirements.txt
         curl -O http://www.jsoftware.com/download/j902/install/j902_linux64.tar.gz
         tar xf j902_linux64.tar.gz &&
           sudo mv j902 /usr/local/share &&
