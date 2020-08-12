@@ -12,28 +12,25 @@ from dataclasses import dataclass
 def main(argv):
     if len(argv) > 1:
         langs = [argv[1]]
-        debug = True
     else:
         langs = subdirs(".")
-        debug = False
 
-    times = []
-    for lang in langs:
-        times.append(bench(lang, debug))
-
+    times = list(map(bench, langs))
     times.sort(key=operator.attrgetter('time'))
     print_table(times)
 
-    return len([time for time in times if time.res != "pass"])
+    failed = [time for time in times if time.res != "pass"]
+
+    return 1 if any(failed) else 0
 
 
-def bench(lang, debug):
+def bench(lang):
     res = BenchResult(lang)
 
     build = subprocess.run("./build", cwd=lang, capture_output=True)
     if build.returncode != 0:
         res.res = "builderror"
-        if debug:
+        if os.getenv("FACBENCH_DEBUG"):
             print(lang, res.res, "\n", build.stderr.decode(), file=sys.stderr)
         return res
 
