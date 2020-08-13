@@ -26,7 +26,7 @@ jobs:
         ghc-version: '8.6'
     - name: Install dependencies
       run: |
-        sudo apt-get install -y sbcl perl6 nim php-gmp
+        sudo apt-get install -y sbcl rakudo nim php-gmp
         pip3 install -r requirements.txt
         curl -O http://www.jsoftware.com/download/j902/install/j902_linux64.tar.gz
         tar xf j902_linux64.tar.gz &&
