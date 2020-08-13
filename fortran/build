@@ -1,0 +1,11 @@
+#!/bin/sh
+
+if [ ! -f fmlib.a ]; then
+  curl -O http://dmsmith.lmu.build/FM1.3/FM_files.zip
+  unzip FM_files.zip
+  mv FM_files/fm.f95 FM_files/fmzm90.f95 FM_files/fmsave.f95 .
+  gfortran -c -O2 fmsave.f95 fmzm90.f95 fm.f95
+  ar rv fmlib.a fm*.o
+fi
+
+gfortran -O3 -o fac fac-bench.f90 fmlib.a
