@@ -1,0 +1,7 @@
+#!/usr/bin/env -S java frink.gui.FrinkStarter
+var res = 0
+for i = 1 to 3000
+{
+    res = res + i!
+}
+print[res]

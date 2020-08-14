@@ -40,5 +40,8 @@ jobs:
         tar xf j902_linux64.tar.gz &&
           sudo mv j902 /usr/local/share &&
           sudo ln -sf /usr/local/share/j902/bin/jconsole /usr/local/bin/jcons
+        curl -O https://frinklang.org/frinkjar/frink.jar
+        echo "::set-env name=CLASSPATH::$PWD/frink.jar"
+
     - name: Run the bench script
       run: ./bench.py ${{ github.event.inputs.name }}
