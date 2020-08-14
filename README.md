@@ -5,14 +5,17 @@ development as well as execution.
 
 ## Specification
 
-Calculate the first 3000 factorials, sum them and print the number out. To get
-meaningful results you should implement fac the naive way.
+Calculate the first 3000 factorials, sum them and print the number out. To make the
+tests pass you must not print a newline. Currently all languagues run sequentially but
+most of the use libraries for bignums and/or factorial calculation.
 
 ## Structure
 
-A subfolder per language. Each folder should contain a file named `build` that
-ensures the executable is ready.
+There is a subfolder per language. Each folder has to contain a file named `build` that
+ensures an executable named `fac` is ready. For compiled languages `build` usually triggers
+the compilation. Scripting languages only create a link to the script.
 
 ## CI
 
-On push all benchmarks are executed and results checked.
+On push all benchmarks are executed and results checked. The output is sorted by execution
+time.
