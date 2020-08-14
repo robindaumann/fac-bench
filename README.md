@@ -18,4 +18,5 @@ the compilation. Scripting languages only create a link to the script.
 ## CI
 
 On push all benchmarks are executed and results checked. The output is sorted by execution
-time.
+time. Under [Actions](https://github.com/robindaumann/fac-bench/actions?query=workflow%3A%22Benchmark+CI%22)
+you can start the workflow with a single language as parameter.
