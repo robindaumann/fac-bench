@@ -12,7 +12,7 @@ from multiprocessing import Pool
 
 def main(argv):
     if len(argv) > 1:
-        langs = [argv[1]]
+        langs = argv[1:]
     else:
         langs = subdirs(".")
 
