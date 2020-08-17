@@ -6,12 +6,12 @@ on:
       - '*'
   workflow_dispatch:
     inputs:
-      name:
+      lang:
         description: 'Language to run'
         required: false
 
 jobs:
-  build:
+  benchmark:
     runs-on: ubuntu-20.04
 
     steps:
@@ -33,19 +33,6 @@ jobs:
       with:
         ghc-version: '8.6'
     - name: Install dependencies
-      run: |
-        sudo apt-get install -y sbcl rakudo nim php-gmp
-        echo 'installing benchmark requirements'
-        pip3 install -r requirements.txt
-
-        echo 'installing j'
-        curl -O http://www.jsoftware.com/download/j902/install/j902_linux64.tar.gz
-        tar xf j902_linux64.tar.gz &&
-          sudo mv j902 /usr/local/share &&
-          sudo ln -sf /usr/local/share/j902/bin/jconsole /usr/local/bin/jcons
-
-        echo 'installing frink'
-        curl -O https://frinklang.org/frinkjar/frink.jar &&
-          echo "::set-env name=CLASSPATH::$PWD/frink.jar"
+      run: ./install.sh
     - name: Run the bench script
-      run: ./bench.py ${{ github.event.inputs.name }}
+      run: ./bench.py ${{ github.event.inputs.lang }}
