@@ -6,48 +6,52 @@ import re
 import operator
 import tabulate
 import subprocess
-from dataclasses import dataclass
 from multiprocessing import Pool
+from typing import NamedTuple
 
 
 def main(argv):
     if len(argv) > 1:
         langs = argv[1:]
     else:
-        langs = subdirs(".")
+        langs = subdirs('.')
 
     with Pool() as p:
         times = p.map(bench, langs)
     times.sort(key=operator.attrgetter('time'))
     print_table(times)
 
-    failed = [time for time in times if time.res != "pass"]
+    failed = [time for time in times if time.status != 'pass']
 
     return 1 if any(failed) else 0
 
 
-def bench(lang):
-    res = BenchResult(lang)
+class BenchResult(NamedTuple):
+    lang: str
+    status: str
+    time: float = math.inf
 
+
+def bench(lang: str) -> BenchResult:
     build = subprocess.run("./build", cwd=lang, capture_output=True)
     if build.returncode != 0:
-        res.res = "builderror"
+        status = 'builderror'
         if os.getenv("FACBENCH_DEBUG"):
-            print(lang, res.res, "\n", build.stderr.decode(), file=sys.stderr)
-        return res
+            print(lang, status, "\n", build.stderr.decode(), file=sys.stderr)
+        return BenchResult(lang, status)
 
     bench = subprocess.run(["time", "-p", f"{lang}/fac"], capture_output=True)
     if bench.returncode != 0:
-        res.res = "error"
-        return res
+        status = 'error'
+        return BenchResult(lang, status)
 
-    res.time = parse_time(bench.stderr)
+    time = parse_time(bench.stderr)
 
     number = to_number(bench.stdout)
-    expect = get_expected()
-    res.res = "pass" if number == expect else "fail"
+    expected = get_expected()
+    status = 'pass' if number == expected else 'fail'
 
-    return res
+    return BenchResult(lang, status, time)
 
 
 def subdirs(path):
@@ -58,41 +62,29 @@ def subdirs(path):
 
 
 def get_expected():
-    with open("expected") as f:
+    with open('expected') as f:
         return int(f.read())
 
 
-def parse_time(s):
-    match = re.search(r"(\d+\.\d+)", s.decode())
-    try:
+def parse_time(text):
+    if match := re.search(r"(\d+\.\d+)", text.decode()):
         num = match.group(1)
         return float(num)
-    except IndexError:
-        return math.inf
+
+    return math.inf
 
 
-def to_number(s):
+def to_number(text):
     try:
-        return int(s)
+        return int(text)
     except ValueError:
         return math.nan
 
 
 def print_table(times):
-    rows = [time.fields() for time in times]
-    header = ['Language', 'Time', 'Result']
-    t = tabulate.tabulate(rows, headers=header, showindex=range(1, len(rows)+1))
+    idxs = range(1, len(times)+1)
+    t = tabulate.tabulate(times, headers='keys', showindex=idxs)
     print(t)
-
-
-@dataclass
-class BenchResult:
-    lang: str
-    res: str = ''
-    time: int = math.inf
-
-    def fields(self):
-        return [self.lang, self.time, self.res]
 
 
 if __name__ == "__main__":
