@@ -1,7 +1,6 @@
 #!/usr/bin/env sh
 
 echo "::group::runnning apt"
-echo "::command::apt"
 sudo apt-get install -y sbcl rakudo nim php-gmp
 echo "::endgroup::"
 
