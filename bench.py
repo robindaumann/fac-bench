@@ -6,18 +6,24 @@ import re
 import operator
 import tabulate
 import subprocess
+import argparse
+import functools
 from multiprocessing import Pool
 from typing import NamedTuple
 
 
-def main(argv):
-    if len(argv) > 1:
-        langs = argv[1:]
-    else:
-        langs = subdirs('.')
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('dirs', metavar='dir', nargs='*', default=subdirs('.'),
+                        type=is_dir, help="directory of the language to run")
+    parser.add_argument('--debug', action="store_true",
+                        help="print debug output if the build process fails")
+    args = parser.parse_args()
 
+    # This is done because lambdas can't be pickled, which is needed for pmap
+    bench_p = functools.partial(bench, debug=args.debug)
     with Pool() as p:
-        times = p.map(bench, langs)
+        times = p.map(bench_p, args.dirs)
     times.sort(key=operator.attrgetter('time'))
     print_table(times)
 
@@ -28,22 +34,24 @@ def main(argv):
 
 class BenchResult(NamedTuple):
     lang: str
+    time: float
     status: str
-    time: float = math.inf
 
 
-def bench(lang: str) -> BenchResult:
+def bench(lang: str, debug: bool) -> BenchResult:
+    time = math.inf
+
     build = subprocess.run("./build", cwd=lang, capture_output=True)
     if build.returncode != 0:
         status = 'builderror'
-        if os.getenv("FACBENCH_DEBUG"):
+        if debug:
             print(lang, status, "\n", build.stderr.decode(), file=sys.stderr)
-        return BenchResult(lang, status)
+        return BenchResult(lang, time, status)
 
     bench = subprocess.run(["time", "-p", f"{lang}/fac"], capture_output=True)
     if bench.returncode != 0:
         status = 'error'
-        return BenchResult(lang, status)
+        return BenchResult(lang, time, status)
 
     time = parse_time(bench.stderr)
 
@@ -51,7 +59,7 @@ def bench(lang: str) -> BenchResult:
     expected = get_expected()
     status = 'pass' if number == expected else 'fail'
 
-    return BenchResult(lang, status, time)
+    return BenchResult(lang, time, status)
 
 
 def subdirs(path):
@@ -59,6 +67,13 @@ def subdirs(path):
     for entry in os.scandir(path):
         if not entry.name.startswith('.') and entry.is_dir():
             yield entry.name
+
+
+def is_dir(path):
+    if os.path.isdir(path):
+        return path
+
+    raise argparse.ArgumentTypeError(f"{path} does not exists")
 
 
 def get_expected():
@@ -88,5 +103,5 @@ def print_table(times):
 
 
 if __name__ == "__main__":
-    code = main(sys.argv)
+    code = main()
     sys.exit(code)
