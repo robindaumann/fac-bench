@@ -1,7 +1,9 @@
 #!/usr/bin/env sh
 
 echo "::group::runnning apt"
-sudo apt-get install -y sbcl rakudo nim php-gmp
+sudo add-apt-repository -y ppa:kelleyk/emacs
+sudo apt-get update -y
+sudo apt-get install -y sbcl rakudo nim php-gmp emacs27-nox
 echo "::endgroup::"
 
 echo "::group::installing bench dependencies via pip"
