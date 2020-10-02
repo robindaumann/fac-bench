@@ -3,7 +3,7 @@
 echo "::group::runnning apt"
 sudo add-apt-repository -y ppa:kelleyk/emacs
 sudo apt-get update -y
-sudo apt-get install -y sbcl rakudo nim php-gmp emacs27-nox
+sudo apt-get install -y sbcl rakudo nim php-gmp emacs27-nox groovy
 echo "::endgroup::"
 
 echo "::group::installing bench dependencies via pip"
