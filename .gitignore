@@ -3,3 +3,7 @@ number
 fac
 bin
 obj
+
+# Python
+/.mypy_cache/
+/venv/
