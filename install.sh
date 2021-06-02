@@ -19,5 +19,5 @@ echo "::endgroup::"
 
 echo "::group::installing frink"
 curl -O https://frinklang.org/frinkjar/frink.jar &&
-  echo "::set-env name=CLASSPATH::$PWD/frink.jar:$CLASSPATH"
+  echo "CLASSPATH=$PWD/frink.jar:$CLASSPATH" >> "$GITHUB_ENV"
 echo "::endgroup::"
