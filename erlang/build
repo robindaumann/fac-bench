@@ -1,3 +1,5 @@
 #!/bin/sh
 
+erl -eval 'erlang:display(erlang:system_info(otp_release)), halt().'  -noshell
+
 [ -f fac ] || ln -s fac.erl fac

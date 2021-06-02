@@ -1,3 +1,5 @@
 #!/bin/sh
 
+elixir --version
+
 [ -f fac ] || ln -s fac.exs fac
